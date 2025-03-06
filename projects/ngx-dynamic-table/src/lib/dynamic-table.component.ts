@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'dyt-dynamic-table',
+  selector: 'dyt-table',
   imports: [],
   template: `
     <p>
