@@ -1,0 +1,14 @@
+tr.dyt-selectable:not(.dyt-selected):hover th,
+tr.dyt-selectable:not(.dyt-selected):hover td {
+   filter: brightness(.7);
+}
+tr.dyt-selected th,
+tr.dyt-selected td {
+   background-color: rgba(0, 124, 255);
+   filter: brightness(.7);
+}
+tr.dyt-selected:hover th,
+tr.dyt-selected:hover td {
+   background-color: rgba(0, 124, 255);
+   filter: brightness(.9);
+}

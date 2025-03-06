@@ -2,8 +2,40 @@
    <div class="container" tabindex="0" cdkScrollable>
       @if (!loading) {
 
-         <table id="dynamic-table" dyt-table>
+         <table
+            id="dynamic-table"
+            dyt-table
 
+            cdkDropList
+            cdkDropListOrientation="vertical"
+            [cdkDropListData]="items"
+            [cdkDropListConnectedTo]="['dynamic-table']"
+            [cdkDropListAutoScrollDisabled]="false"
+            [cdkDropListAutoScrollStep]="10"
+            (cdkDropListDropped)="onRowDrop($event)"
+         >
+
+            <thead>
+               <tr>
+
+               </tr>
+            </thead>
+
+            <tbody>
+               @for (item of items; track $index; let index = $index) {
+                  <tr
+                     dyt-row
+                     [dyt-draggable]="true"
+                     [dyt-selectable]="true"
+                     (dyt-selected)="onRowSelect($event, index)"
+
+                     cdkDrag
+                  >
+   
+                  </tr>
+               }
+            </tbody>
+               
          </table>
          
       }
