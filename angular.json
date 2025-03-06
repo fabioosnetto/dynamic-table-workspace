@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "dynamic-table": {
+    "ngx-dynamic-table": {
       "projectType": "library",
       "root": "projects/dynamic-table",
       "sourceRoot": "projects/dynamic-table/src",

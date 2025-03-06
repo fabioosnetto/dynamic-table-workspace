@@ -1,5 +1,5 @@
 {
-  "name": "dynamic-table",
+  "name": "ngx-dynamic-table",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^19.2.0",
