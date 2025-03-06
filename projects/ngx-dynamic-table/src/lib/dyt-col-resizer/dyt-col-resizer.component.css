@@ -1,0 +1,52 @@
+* {
+   all: unset;
+}
+
+:host {
+   display: none;
+}
+:host-context(thead) :host {
+   display: initial;
+}
+.dyt-vert-cell-resizer {
+   height: 80%;
+   position: absolute;
+   top: 50%;
+   right: 1px;
+   display: flex;
+   align-items: center;
+   justify-items: center;
+   gap: 1px;
+   cursor: col-resize;
+   transform: translateY(-50%);
+}
+.dyt-vert-cell-resizer .resize-middle {
+   height: 100%;
+   width: 5px;
+   border-right: 2px solid transparent;
+   border-left: 2px solid transparent;
+}
+.dyt-vert-cell-resizer .resize-left, .resize-right {
+   width: 7px;
+   height: 7px;
+   transform: rotate(45deg);
+   border: 2px solid transparent;
+}
+.dyt-vert-cell-resizer .resize-left {
+   border-top: none;
+   border-right: none;
+}
+.dyt-vert-cell-resizer .resize-right {
+   border-left: none;
+   border-bottom: none;
+}
+.dyt-vert-cell-resizer:hover .resize-left,
+.dyt-vert-cell-resizer:hover .resize-middle,
+.dyt-vert-cell-resizer:hover .resize-right {
+   border-color: rgb(61, 61, 61);
+}
+.dyt-vert-cell-resizer:active .resize-left,
+.dyt-vert-cell-resizer:active .resize-middle,
+.dyt-vert-cell-resizer:active .resize-right {
+   border-color: rgb(240, 240, 240);
+}

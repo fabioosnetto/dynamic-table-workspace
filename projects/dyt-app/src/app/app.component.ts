@@ -3,6 +3,8 @@ import { DytTableComponent } from '../../../ngx-dynamic-table/src/public-api';
 import { DytRowComponent } from '../../../ngx-dynamic-table/src/lib/dyt-row/dyt-row.component';
 import { DytDraggableRowDirective } from '../../../ngx-dynamic-table/src/lib/dyt-row/directives/draggable/dyt-draggable-row.directive';
 import { DytSelectableRowDirective } from '../../../ngx-dynamic-table/src/lib/dyt-row/directives/selectable/dyt-selectable-row.directive';
+import { DytHeaderCellComponent } from '../../../ngx-dynamic-table/src/lib/dyt-header-cell/dyt-header-cell.component';
+import { DytBodyCellComponent } from '../../../ngx-dynamic-table/src/lib/dyt-body-cell/dyt-body-cell.component';
 
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CdkScrollable } from '@angular/cdk/scrolling';
@@ -19,7 +21,7 @@ interface Item {
 
 @Component({
   selector: 'app-root',
-  imports: [DytTableComponent, DytRowComponent, DytDraggableRowDirective, DytSelectableRowDirective, CdkDrag, CdkDropList, CdkScrollable],
+  imports: [DytTableComponent, DytRowComponent, DytDraggableRowDirective, DytSelectableRowDirective, DytHeaderCellComponent, DytBodyCellComponent, CdkDrag, CdkDropList, CdkScrollable],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

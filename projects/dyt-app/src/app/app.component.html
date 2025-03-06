@@ -17,7 +17,11 @@
 
             <thead>
                <tr>
-
+                  <th id="col-1" dyt-cell>ID</th>
+                  <th id="col-2" dyt-cell>Code</th>
+                  <th id="col-3" dyt-cell>Description</th>
+                  <th id="col-4" dyt-cell>Status Code</th>
+                  <th id="col-5" dyt-cell>Status Description</th>
                </tr>
             </thead>
 
@@ -31,6 +35,12 @@
 
                      cdkDrag
                   >
+
+                     <th dyt-cell>{{ item.id }}</th>
+                     <td dyt-cell>{{ item.code }}</td>
+                     <td dyt-cell>{{ item.description }}</td>
+                     <td dyt-cell>{{ item.status.code }}</td>
+                     <td dyt-cell>{{ item.status.description }}</td>
    
                   </tr>
                }
