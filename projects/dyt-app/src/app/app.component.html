@@ -1,4 +1,5 @@
 <main>
+   <button (click)="unselectAll()">fucking button</button>
    <div class="container" tabindex="0" cdkScrollable>
       @if (!loading) {
 
@@ -31,9 +32,10 @@
                      dyt-row
                      [dyt-draggable]="true"
                      [dyt-selectable]="true"
+                     [dyt-trackBy]="{ groupId: 'dynamic-table', itemId: item.id }"
                      (dyt-selected)="onRowSelect($event, index)"
-
                      cdkDrag
+                     (cdkDragStarted)="onDragStarted()"
                   >
 
                      <th dyt-cell>{{ item.id }}</th>

@@ -1,10 +1,13 @@
-import { Directive, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
+import { Directive, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { RowSelectionService } from './row-selection.service';
+import { Subscription } from 'rxjs';
+import { iSelectable, iSelectionEvent } from './row-selection.models';
 
 @Directive({
   selector: '[dyt-selectable]'
 })
-export class DytSelectableRowDirective {
-
+export class DytSelectableRowDirective implements OnInit, OnDestroy {
+  
   // is selectable input
   @Input('dyt-selectable') 
   set isSelectableInput(value: boolean | string) {
@@ -14,43 +17,60 @@ export class DytSelectableRowDirective {
       : value.trim().toLocaleLowerCase() === 'true';
 
     // prevent selecting non selectable row
-    if (!this._isSelectable && this._isSelected) this._unselect();
+    if (!this._isSelectable && this._isSelected) this._selectionService.unselect(this.trackBy);
   }
+
+  // track by
+  @Input('dyt-trackBy') trackBy: iSelectable;
 
   // emit whether a row is selected
-  @Output('dyt-selected') selected: EventEmitter<boolean>;
+  @Output('dyt-selected') selected: EventEmitter<iSelectionEvent>;
 
-  private _isSelectable : boolean;
-  private _isSelected   : boolean;
+  private _isSelectable  : boolean;
+  private _subscription !: Subscription;
 
-  constructor() {
+  constructor(
+    private _selectionService: RowSelectionService
+  ) {
+    this.trackBy       = { groupId: '', itemId: '' };
+    this.selected      = new EventEmitter();
+    
     this._isSelectable = true;
-    this._isSelected   = false;
-    this.selected      = new EventEmitter<boolean>();
   }
 
-  // Select
-  private _select(): void {
-    this._isSelected = true;
-    this.selected.emit(this._isSelected);
+  ngOnInit(): void {
+
+    // listen when selection changes
+    this._subscription = this._selectionService.selectionChange$.subscribe(({ group, selected }) => {
+      // same selection group
+      if (group === this.trackBy.groupId) {
+
+        // emit selection
+        this.selected.emit({
+          selected  : selected.has(this.trackBy.itemId),
+          selection : { group, selected },
+          trackBy   : this.trackBy
+        });
+
+      }
+    });
+
   }
 
-  // Unselect
-  private _unselect(): void {
-    this._isSelected = false;
-    this.selected.emit(this._isSelected);
+  ngOnDestroy(): void {
+    this._subscription?.unsubscribe();
   }
 
-  // add class whether a row is selectable
+  // host is selectable
   @HostBinding('class.dyt-selectable')
   public get isSelectable(): boolean {
     return this._isSelectable;
   }
 
-  // add class whether a row is selected
+  // Is Selected
   @HostBinding('class.dyt-selected')
-  public get isSelected(): boolean {
-    return this._isSelected;
+  private get _isSelected(): boolean {
+    return this._selectionService.isSelected(this.trackBy);
   }
 
   // listen row click
@@ -58,12 +78,12 @@ export class DytSelectableRowDirective {
   public onClick(): void {
     // prevent selecting non selectable row
     if (!this._isSelectable) {
-      if (this._isSelected) this._unselect();
+      if (this._isSelected) this._selectionService.unselect(this.trackBy);
       return;
     }
 
     // toggle selection
-    if (this._isSelected) this._unselect();
-    else this._select();
+    if (this._isSelected) this._selectionService.unselect(this.trackBy);
+    else this._selectionService.select(this.trackBy);
   }
 }

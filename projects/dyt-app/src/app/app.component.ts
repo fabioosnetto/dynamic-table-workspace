@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { DytBodyCellComponent, DytDraggableRowDirective, DytHeaderCellComponent, DytRowComponent, DytSelectableRowDirective, DytTableComponent } from '../../../../dist/ngx-dynamic-table';
-import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
+import { DytBodyCellComponent, DytDraggableRowDirective, DytHeaderCellComponent, DytRowComponent, DytSelectableRowDirective, DytTableComponent, iSelectionEvent, RowSelectionService } from '../../../../dist/ngx-dynamic-table';
+import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 
 interface Item {
@@ -15,7 +15,7 @@ interface Item {
 
 @Component({
   selector: 'app-root',
-  imports: [DytTableComponent, DytRowComponent, DytDraggableRowDirective, DytSelectableRowDirective, DytHeaderCellComponent, DytBodyCellComponent, CdkDrag, CdkDropList, CdkScrollable],
+  imports: [DytTableComponent, DytRowComponent, DytDraggableRowDirective, DytSelectableRowDirective, DytHeaderCellComponent, DytBodyCellComponent, CdkDrag, DragDropModule, CdkDropList, CdkScrollable],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -24,7 +24,9 @@ export class AppComponent {
   public items: Array<Item>;
   public loading: boolean;
 
-  constructor() {
+  constructor(
+    private _selectionService: RowSelectionService
+  ) {
     this.items = this._getItems();
     this.items.map((r, i) => r.id = i);
 
@@ -85,13 +87,23 @@ export class AppComponent {
     ];
   }
 
+  // On Drag Started
+  onDragStarted(): void {
+    this.unselectAll();
+  }
+
   // On Row Drop
   public onRowDrop(event: CdkDragDrop<any>) {
     moveItemInArray(this.items, event.previousIndex, event.currentIndex);
   }
 
   // On Row Select
-  public onRowSelect(event: boolean, rowIndex: number): void {
+  public onRowSelect(event: iSelectionEvent, rowIndex: number): void {
     // console.log('selected: ', event, ' - row: ', rowIndex);
+  }
+  
+  // Unselect All
+  public unselectAll(): void {
+    this._selectionService.unselectAll('dynamic-table');
   }
 }
