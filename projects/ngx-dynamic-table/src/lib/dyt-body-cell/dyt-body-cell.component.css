@@ -21,4 +21,13 @@
    text-overflow: ellipsis;
    overflow: hidden;
    user-select: none;
+   outline: 0 !important;
+}
+:host:hover,
+:host:focus-visible {
+   filter: brightness(.65) !important;
+}
+:host-context(tr).dyt-selected :host:hover,
+:host-context(tr).dyt-selected :host:focus-visible {
+   filter: brightness(.8) !important;
 }

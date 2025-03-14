@@ -22,13 +22,19 @@
    text-overflow: ellipsis;
    overflow: hidden;
    user-select: none;
+   outline: 0 !important;
 }
 :host:not(:active){
    transition: width 500ms ease-in-out;
    transition-delay: 100ms;
 }
-:host:hover {
-   filter: brightness(.7);
+:host:hover,
+:host:focus-visible {
+   filter: brightness(.65) !important;
+}
+:host-context(tr).dyt-selected :host:hover,
+:host-context(tr).dyt-selected :host:focus-visible {
+   filter: brightness(.8) !important;
 }
 :host-context(thead):host-context(tr:first-child) {
    border-top: none;

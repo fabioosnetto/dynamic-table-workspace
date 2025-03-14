@@ -107,4 +107,14 @@ export class DytHeaderCellComponent implements AfterViewInit, OnDestroy {
   get widthString(): string | null {
     return this._width ? `${this._width}px` : null;
   }
+
+  // host tab index
+  @HostBinding('tabindex')
+  get tabIndex(): number | void {
+    // if no tab index was set to element, set tabindex 0
+    if (this._elementRef.nativeElement) {
+      const el_TabIndex = (this._elementRef.nativeElement as HTMLElement).tabIndex;
+      return el_TabIndex >= 0 ? el_TabIndex : 0;
+    }
+  }
 }
