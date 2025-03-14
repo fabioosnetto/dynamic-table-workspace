@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
-import { DytTableComponent } from '../../../ngx-dynamic-table/src/public-api';
-import { DytRowComponent } from '../../../ngx-dynamic-table/src/lib/dyt-row/dyt-row.component';
-import { DytDraggableRowDirective } from '../../../ngx-dynamic-table/src/lib/dyt-row/directives/draggable/dyt-draggable-row.directive';
-import { DytSelectableRowDirective } from '../../../ngx-dynamic-table/src/lib/dyt-row/directives/selectable/dyt-selectable-row.directive';
-import { DytHeaderCellComponent } from '../../../ngx-dynamic-table/src/lib/dyt-header-cell/dyt-header-cell.component';
-import { DytBodyCellComponent } from '../../../ngx-dynamic-table/src/lib/dyt-body-cell/dyt-body-cell.component';
-
+import { DytBodyCellComponent, DytDraggableRowDirective, DytHeaderCellComponent, DytRowComponent, DytSelectableRowDirective, DytTableComponent } from '../../../../dist/ngx-dynamic-table';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 

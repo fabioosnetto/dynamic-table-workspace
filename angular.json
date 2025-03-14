@@ -5,21 +5,21 @@
   "projects": {
     "ngx-dynamic-table": {
       "projectType": "library",
-      "root": "projects/dynamic-table",
-      "sourceRoot": "projects/dynamic-table/src",
+      "root": "projects/ngx-dynamic-table",
+      "sourceRoot": "projects/ngx-dynamic-table/src",
       "prefix": "dyt",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/dynamic-table/ng-package.json"
+            "project": "projects/ngx-dynamic-table/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/dynamic-table/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngx-dynamic-table/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/dynamic-table/tsconfig.lib.json"
+              "tsConfig": "projects/ngx-dynamic-table/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -27,7 +27,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "projects/dynamic-table/tsconfig.spec.json",
+            "tsConfig": "projects/ngx-dynamic-table/tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"

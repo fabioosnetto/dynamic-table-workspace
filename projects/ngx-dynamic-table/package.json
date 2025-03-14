@@ -1,6 +1,9 @@
 {
-  "name": "ngx-dynamic-table",
+  "name": "@fabioosnetto/ngx-dynamic-table",
   "version": "0.0.1",
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "@angular/common": "^19.2.0",
     "@angular/core": "^19.2.0",
