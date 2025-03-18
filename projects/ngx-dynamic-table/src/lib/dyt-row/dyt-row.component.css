@@ -2,6 +2,10 @@ tr {
    outline: 0 !important;
 }
 
+tr.dyt-row-highlight-on-hover:not(.dyt-selected):hover td,
+tr.dyt-row-highlight-on-hover:not(.dyt-selected):hover th,
+tr.dyt-row-highlight-on-hover:not(.dyt-selected):focus-within td,
+tr.dyt-row-highlight-on-hover:not(.dyt-selected):focus-within th,
 tr.dyt-selectable:not(.dyt-selected):hover th,
 tr.dyt-selectable:not(.dyt-selected):hover td,
 tr.dyt-selectable:not(.dyt-selected):focus-within th,
