@@ -101,7 +101,9 @@ export class AppComponent {
 
   // On Row Select
   public onRowSelect(event: iSelectionEvent, rowIndex: number): void {
-    // console.log('selected: ', event, ' - row: ', rowIndex);
+    if (event.selection.selected.has(event.trackBy.itemId)) {
+      // console.log('selected: ', event, ' - row: ', rowIndex);
+    }
   }
   
   // Unselect All

@@ -47,9 +47,10 @@ export class DytSelectableRowDirective implements OnInit, OnDestroy {
 
         // emit selection
         this.selected.emit({
-          selected  : selected.has(this.trackBy.itemId),
-          selection : { group, selected },
-          trackBy   : this.trackBy
+          isSelected : selected.has(this.trackBy.itemId),
+          selected   : this.trackBy.itemId,
+          selection  : { group, selected },
+          trackBy    : this.trackBy
         });
 
       }

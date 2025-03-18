@@ -16,7 +16,8 @@ export interface iSelected {
 }
 
 export interface iSelectionEvent {
-  selected  : boolean;
-  selection : iSelected;
-  trackBy   : iSelectable;
+  isSelected : boolean;
+  selected   : string | number;
+  selection  : iSelected;
+  trackBy    : iSelectable;
 }

@@ -18,8 +18,10 @@ export class RowSelectionService {
   }
 
   // Select
-  public select(item: iSelectable): void {
+  public select(item: iSelectable, allowMultiple: boolean = false): void {
     
+    if (!allowMultiple) this.unselectAll(item.groupId);
+
     // add selection group if doesn't exist
     if (!this._selectionMap.has(item.groupId)) {
       this._selectionMap.set(item.groupId, new Set());
@@ -57,13 +59,13 @@ export class RowSelectionService {
   }
 
   // Unselect All
-  public unselectAll(groupId: string) {
+  public unselectAll(groupId: string | number) {
     this._selectionMap.set(groupId, new Set());
     this._selectionChange.next({ group: groupId, selected: new Set() });
   }
 
   // Get Selection
-  public getSelection(groupId: string): iSelection {
+  public getSelection(groupId: string | number): iSelection {
     return this._selectionMap.get(groupId) ?? new Set();
   }
 
