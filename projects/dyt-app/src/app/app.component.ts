@@ -23,6 +23,7 @@ export class AppComponent {
   
   public items: Array<Item>;
   public loading: boolean;
+  public toggleOn: boolean;
 
   constructor(
     private _selectionService: RowSelectionService
@@ -31,6 +32,7 @@ export class AppComponent {
     this.items.map((r, i) => r.id = i);
 
     this.loading = true;
+    this.toggleOn = false;
   }
 
   ngAfterViewInit(): void {

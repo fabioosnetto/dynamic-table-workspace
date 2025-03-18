@@ -1,8 +1,14 @@
 :host {
+   width: auto;
+   min-width: 100%;
    background-color: black;
    table-layout: fixed;
    border-collapse: separate;
    border-spacing: 0;
    box-sizing: border-box;
    overflow: auto;
+}
+:host.dyt-ready {
+   width: fit-content;
+   min-width: unset;
 }

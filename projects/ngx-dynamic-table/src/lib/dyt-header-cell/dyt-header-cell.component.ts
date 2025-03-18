@@ -35,16 +35,37 @@ export class DytHeaderCellComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      // first initialize width to the width transition behaviour work as expected
-      this._initWidth();
-      // then initialize the column settings (like cached width)
-      setTimeout(() => { this._initColumnSettings(); })
-    });
+    this._listenFirstVisibility();
   }
 
   ngOnDestroy(): void {
     this._subscriptions.forEach(s => s.unsubscribe());
+  }
+
+  // Listen First Visibility
+  private _listenFirstVisibility(): void {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+
+        this._onFirstVisibility();
+        observer.disconnect();
+
+      }
+    },
+    {
+      // check visibility in the parent element
+      // checking to the viewport can be clipped by overflow
+      root: (this._elementRef.nativeElement as HTMLElement)?.parentElement
+    });
+    observer.observe(this._elementRef.nativeElement)
+  }
+
+  // On First Visibility
+  private _onFirstVisibility(): void {
+    // first initialize width to the width transition behaviour work as expected
+    this._initWidth();
+    // // then initialize the column settings (like cached width)
+    setTimeout(() => { this._initColumnSettings(); })
   }
 
   // Init Column Settings

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostBinding } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'table[dyt-table]',
@@ -8,27 +8,43 @@ import { AfterViewInit, Component, HostBinding } from '@angular/core';
 })
 export class DytTableComponent implements AfterViewInit {
 
-  private _width:    string | null;
-  private _minWidth: number | null;
+  @HostBinding('class.dyt-ready')
+  private _isReady : boolean;
 
-  constructor() {
-    this._width    = 'auto'; // initalize width as auto to automatic calculate columns width
-    this._minWidth = 100; // initialize min width to at least fill the container width
+  constructor(
+    private _elementRef: ElementRef
+  ) {
+    this._isReady = false;
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      this._width    = 'fit-content'; // change width to fit content and then allow column resizing
-      this._minWidth = null; // reset min width to allow resizing to any width
-    });
+    this._listenAllHeadersHaveWidth();
   }
 
-  @HostBinding('style.minWidth.%')
-  get minWidth(): number | null {
-    return this._minWidth;
+  // Listen All Headers Have Width
+  private _listenAllHeadersHaveWidth(): void {
+    const observer = new MutationObserver(() => {
+      // check all th children width  
+      const allHeadersHaveWidth = Array.from(
+        (this._elementRef.nativeElement as HTMLTableElement)
+          .querySelectorAll('thead th') as NodeListOf<HTMLElement>
+      )
+      .every((th) => th.style.width && th.style.width !== 'auto');
+      
+      // all headers have width
+      if (allHeadersHaveWidth) {
+        observer.disconnect();
+        this._onAllHeadersHaveWidth();
+      }
+    });
+        
+    observer.observe(this._elementRef.nativeElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
   }
-  @HostBinding('style.width')
-  get width(): string | null {
-    return this._width;
+
+  // On All Headers Have Width
+  private _onAllHeadersHaveWidth(): void {
+    requestAnimationFrame(() => {
+      this._isReady = true;
+    });
   }
 }
