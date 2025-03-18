@@ -50,3 +50,16 @@
 .dyt-vert-cell-resizer:active .resize-right {
    border-color: rgb(240, 240, 240);
 }
+
+
+/* not dark theme */
+:host-context(html):not(.dark-theme) .dyt-vert-cell-resizer:hover .resize-left,
+:host-context(html):not(.dark-theme) .dyt-vert-cell-resizer:hover .resize-middle,
+:host-context(html):not(.dark-theme) .dyt-vert-cell-resizer:hover .resize-right {
+   border-color: rgb(240, 240, 240);
+}
+:host-context(html):not(.dark-theme) .dyt-vert-cell-resizer:active .resize-left,
+:host-context(html):not(.dark-theme) .dyt-vert-cell-resizer:active .resize-middle,
+:host-context(html):not(.dark-theme) .dyt-vert-cell-resizer:active .resize-right {
+   border-color: rgb(61, 61, 61);
+}

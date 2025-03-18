@@ -47,3 +47,14 @@
    left: 0;
    z-index: 1;
 }
+
+
+/* not dark theme */
+:host-context(html):not(.dark-theme) :host {
+   background-color: rgb(197, 197, 197);
+   color: rgb(59, 59, 59);
+   border-top-color: rgb(159, 159, 159);
+   border-bottom-color: rgb(159, 159, 159);
+   border-left-color: rgb(159, 159, 159);
+   border-right-color: rgb(159, 159, 159);
+}

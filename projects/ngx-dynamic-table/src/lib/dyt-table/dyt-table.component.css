@@ -12,3 +12,8 @@
    width: fit-content;
    min-width: unset;
 }
+
+/* not dark theme */
+:host-context(html):not(.dark-theme) :host {
+   background-color: white;
+}

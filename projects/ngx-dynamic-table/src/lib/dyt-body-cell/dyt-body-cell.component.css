@@ -31,3 +31,14 @@
 :host-context(tr).dyt-selected :host:focus-visible {
    filter: brightness(.8) !important;
 }
+
+
+/* not dark theme */
+:host-context(html):not(.dark-theme) :host {
+   background-color: rgb(219, 219, 219);
+   color: rgb(25, 25, 25);
+   border-top-color: rgb(181, 181, 181);
+   border-bottom-color: rgb(181, 181, 181);
+   border-left-color: rgb(206, 206, 206);
+   border-right-color: rgb(206, 206, 206);
+}
