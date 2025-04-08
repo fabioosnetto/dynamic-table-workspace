@@ -9,9 +9,10 @@ import { BehaviorSubject, Subscription } from 'rxjs';
   templateUrl: './dyt-header-cell.component.html',
   styleUrl: './dyt-header-cell.component.css'
 })
-export class DytHeaderCellComponent implements AfterViewInit, OnDestroy {
+export class DytHeaderCellComponent implements AfterViewInit, AfterContentInit, AfterContentChecked, OnDestroy {
 
   @Input({ alias: 'dyt-cell-placeholder', required: false }) placeholder!: { value: string, show: boolean };
+  @Input({ alias: 'dyt-cell-auto-tip',    required: false }) autoTip: boolean;
 
   private _dytCell       : ElementRef<HTMLElement>;
   private _dytCell_el    : HTMLElement;
@@ -20,9 +21,11 @@ export class DytHeaderCellComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private _elementRef: ElementRef,
-    private _dytService: DynamicTableService
+    private _dytService: DynamicTableService,
+    private _cdr: ChangeDetectorRef
   ) {
     this.placeholder = { value: '-', show: false };
+    this.autoTip     = false;
 
     this._dytCell       = this._elementRef;
     this._dytCell_el    = (this._dytCell.nativeElement as HTMLElement);
@@ -40,6 +43,18 @@ export class DytHeaderCellComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this._listenFirstVisibility();
+  }
+
+  ngAfterContentInit(): void {
+    // content can be changed after change detection by the placeholder
+    // so the title value can also change
+    this._cdr.detectChanges();
+  }
+
+  ngAfterContentChecked(): void {
+    // content can be changed after change detection by the placeholder
+    // so the title value can also change
+    this._cdr.detectChanges();
   }
 
   ngOnDestroy(): void {
@@ -141,5 +156,17 @@ export class DytHeaderCellComponent implements AfterViewInit, OnDestroy {
       const el_TabIndex = (this._elementRef.nativeElement as HTMLElement).tabIndex;
       return el_TabIndex >= 0 ? el_TabIndex : 0;
     }
+  }
+
+  // host title
+  @HostBinding('attr.title')
+  public get title(): string | null {
+    const host     = this._elementRef.nativeElement as HTMLElement;
+    const newTitle = host.textContent?.trim() ?? null;
+
+    // set host title with text content if allowed
+    if (this.autoTip) return newTitle;
+    // keep original title
+    else return host.title;
   }
 }
