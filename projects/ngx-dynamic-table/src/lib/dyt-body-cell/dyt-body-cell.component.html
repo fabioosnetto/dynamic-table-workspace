@@ -1,1 +1,2 @@
-<ng-content></ng-content>
+@if (!placeholder.show) { <ng-content></ng-content> }
+@else { {{ placeholder.value }} }

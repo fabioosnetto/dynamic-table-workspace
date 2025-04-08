@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostBinding, OnDestroy } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, OnDestroy } from '@angular/core';
 import { DynamicTableService, iDytColumnSettings } from '../services/dynamic-table.service';
 import { DytColResizerComponent } from '../dyt-col-resizer/dyt-col-resizer.component';
 import { BehaviorSubject, Subscription } from 'rxjs';
@@ -11,15 +11,19 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 })
 export class DytHeaderCellComponent implements AfterViewInit, OnDestroy {
 
-  private _dytCell    : ElementRef<HTMLElement>;
-  private _dytCell_el : HTMLElement;
-  private _width$     : BehaviorSubject<number | null>;
+  @Input({ alias: 'dyt-cell-placeholder', required: false }) placeholder!: { value: string, show: boolean };
+
+  private _dytCell       : ElementRef<HTMLElement>;
+  private _dytCell_el    : HTMLElement;
+  private _width$        : BehaviorSubject<number | null>;
   private _subscriptions : Array<Subscription>;
 
   constructor(
     private _elementRef: ElementRef,
     private _dytService: DynamicTableService
   ) {
+    this.placeholder = { value: '-', show: false };
+
     this._dytCell       = this._elementRef;
     this._dytCell_el    = (this._dytCell.nativeElement as HTMLElement);
     this._width$        = new BehaviorSubject<number | null>(null);

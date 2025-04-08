@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input } from '@angular/core';
 
 @Component({
   selector: 'td[dyt-cell]',
@@ -7,10 +7,12 @@ import { Component, ElementRef, HostBinding } from '@angular/core';
   styleUrl: './dyt-body-cell.component.css'
 })
 export class DytBodyCellComponent {
+  @Input({ alias: 'dyt-cell-placeholder', required: false }) placeholder: { value: string, show: boolean };
 
   constructor(
     private _elementRef: ElementRef
   ) {}
+    this.placeholder = { value: '-', show: false };
 
   // host tab index
   @HostBinding('tabindex')
