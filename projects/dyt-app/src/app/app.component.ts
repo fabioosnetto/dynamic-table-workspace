@@ -25,6 +25,8 @@ export class AppComponent {
   public loading: boolean;
   public toggleOn: boolean;
 
+  public customFuckingValue: string;
+
   constructor(
     private _selectionService: RowSelectionService
   ) {
@@ -33,6 +35,8 @@ export class AppComponent {
 
     this.loading = true;
     this.toggleOn = false;
+
+    this.customFuckingValue = '';
   }
 
   ngAfterViewInit(): void {
@@ -109,5 +113,10 @@ export class AppComponent {
   // Unselect All
   public unselectAll(): void {
     this._selectionService.unselectAll('dynamic-table');
+  }
+
+  // Set Custom Fucking Value
+  public setCustomFuckingValue(): void {
+    this.customFuckingValue = 'This is your custom fucking value!';
   }
 }

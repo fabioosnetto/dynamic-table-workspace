@@ -1,6 +1,7 @@
 <main>
-   <button (click)="unselectAll()">unselect all</button>
    <button (click)="toggleOn = !toggleOn">toggle</button>
+   <button (click)="unselectAll()">unselect all</button>
+   <button (click)="setCustomFuckingValue()">fucking value</button>
    
    <div class="container" tabindex="0" cdkScrollable [style.display]="toggleOn ? null : 'none'">
       @if (!loading) {
@@ -20,22 +21,22 @@
 
             <thead>
                <tr>
-                  <th id="col-1" dyt-cell>ID</th>
-                  <th id="col-2" dyt-cell>Code</th>
-                  <th id="col-3" dyt-cell>Description</th>
-                  <th id="col-4" dyt-cell>Status Code</th>
-                  <th id="col-5" dyt-cell>Status Description</th>
+                  <th id="col-1" dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">ID</th>
+                  <th id="col-2" dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">Code</th>
+                  <th id="col-3" dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">Description</th>
+                  <th id="col-4" dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">Status Code</th>
+                  <th id="col-5" dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">Status Description</th>
 
-                  <th id="col-6" dyt-cell>ID</th>
-                  <th id="col-7" dyt-cell>Code</th>
-                  <th id="col-8" dyt-cell>Description</th>
-                  <th id="col-9" dyt-cell>Status Code</th>
-                  <th id="col-10" dyt-cell>Status Description</th>
-                  <th id="col-11" dyt-cell>ID</th>
-                  <th id="col-12" dyt-cell>Code</th>
-                  <th id="col-13" dyt-cell>Description</th>
-                  <th id="col-14" dyt-cell>Status Code</th>
-                  <th id="col-15" dyt-cell>Status Description</th>
+                  <th id="col-6" dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">ID</th>
+                  <th id="col-7" dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">Code</th>
+                  <th id="col-8" dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">Description</th>
+                  <th id="col-9" dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">Status Code</th>
+                  <th id="col-10" dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">Status Description</th>
+                  <th id="col-11" dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">ID</th>
+                  <th id="col-12" dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">Code</th>
+                  <th id="col-13" dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">Description</th>
+                  <th id="col-14" dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">Status Code</th>
+                  <th id="col-15" dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">Status Description</th>
                </tr>
             </thead>
 
@@ -52,22 +53,22 @@
                      (cdkDragStarted)="onDragStarted()"
                   >
 
-                     <th dyt-cell>{{ item.id }}</th>
-                     <td dyt-cell>{{ item.code }}</td>
-                     <td dyt-cell>{{ item.description }}</td>
-                     <td dyt-cell>{{ item.status.code }}</td>
-                     <td dyt-cell>{{ item.status.description }}</td>
+                     <th dyt-cell [dyt-cell-placeholder]="{ value: '-', show: true }"></th>
+                     <td dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">{{ item.code }}</td>
+                     <td dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">{{ item.description }}</td>
+                     <td dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">{{ item.status.code }}</td>
+                     <td dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">{{ item.status.description }}</td>
 
-                     <th dyt-cell>{{ item.id }}</th>
-                     <td dyt-cell>{{ item.code }}</td>
-                     <td dyt-cell>{{ item.description }}</td>
-                     <td dyt-cell>{{ item.status.code }}</td>
-                     <td dyt-cell>{{ item.status.description }}</td>
-                     <th dyt-cell>{{ item.id }}</th>
-                     <td dyt-cell>{{ item.code }}</td>
-                     <td dyt-cell>{{ item.description }}</td>
-                     <td dyt-cell>{{ item.status.code }}</td>
-                     <td dyt-cell>{{ item.status.description }}</td>
+                     <th dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">{{ item.id }}</th>
+                     <td dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">{{ item.code }}</td>
+                     <td dyt-cell [dyt-cell-placeholder]="{ value: '-', show: !customFuckingValue }" [dyt-cell-auto-tip]="true">{{ customFuckingValue }}</td>
+                     <td dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">{{ item.status.code }}</td>
+                     <td dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">{{ item.status.description }}</td>
+                     <th dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">{{ item.id }}</th>
+                     <td dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">{{ item.code }}</td>
+                     <td dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">{{ item.description }}</td>
+                     <td dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">{{ item.status.code }}</td>
+                     <td dyt-cell [dyt-cell-placeholder]="{ value: '-', show: false }">{{ item.status.description }}</td>
    
                   </tr>
                }
