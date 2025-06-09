@@ -29,6 +29,11 @@ export class DynamicTableService {
     else return this.getParentTable(parent);
   }
 
+  // Get Table ID
+  public getTableId(element: HTMLElement): string {
+    return element.getAttribute('dyt-settings-group-id') ?? element.id;
+  }
+
   // Save Column Settings
   public saveColumnSettings(tableId: string, columnId: string, settings: iDytColumnSettings): void {
 

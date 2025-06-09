@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostBinding } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, Input } from '@angular/core';
 
 @Component({
   selector: 'table[dyt-table]',
@@ -8,13 +8,17 @@ import { AfterViewInit, Component, ElementRef, HostBinding } from '@angular/core
 })
 export class DytTableComponent implements AfterViewInit {
 
+  @Input({ alias: 'dyt-settings-group-id', required: false })
+  public settingsGroupId: string;
+
   @HostBinding('class.dyt-ready')
   private _isReady : boolean;
 
   constructor(
     private _elementRef: ElementRef
   ) {
-    this._isReady = false;
+    this.settingsGroupId = '';
+    this._isReady         = false;
   }
 
   ngAfterViewInit(): void {
