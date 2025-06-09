@@ -1,0 +1,16 @@
+:root {
+   --dyt-bg-table: rgb(0, 0, 0);
+   --dyt-bg-th: rgb(30, 30, 30);
+   --dyt-bg-td: rgb(45, 45, 45);
+   --dyt-color-th: rgb(185, 185, 185);
+   --dyt-color-td: rgb(240, 240, 240);
+   --dyt-border-color-th-1: rgb(40, 40, 40);
+   --dyt-border-color-th-2: rgb(36, 36, 36);
+   --dyt-border-color-td-1: rgb(55, 55, 55);
+   --dyt-border-color-td-2: rgb(48, 48, 48);
+   --dyt-bg-selected-row: rgba(0, 124, 255);
+   --dyt-bg-zebra-row-th: rgb(20, 20, 20);
+   --dyt-bg-zebra-row-td: rgb(35, 35, 35);
+   --dyt-color-selected-row: rgb(255, 255, 255);
+   --dyt-brigthness-active-row: 1.5;
+}

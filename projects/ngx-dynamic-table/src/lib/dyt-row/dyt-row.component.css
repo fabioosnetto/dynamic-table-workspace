@@ -10,25 +10,18 @@ tr.dyt-selectable:not(.dyt-selected):hover th,
 tr.dyt-selectable:not(.dyt-selected):hover td,
 tr.dyt-selectable:not(.dyt-selected):focus-within th,
 tr.dyt-selectable:not(.dyt-selected):focus-within td {
-   filter: brightness(.7);
+   filter: brightness(var(--dyt-brigthness-active-row));
+}
 }
 tr.dyt-selected th,
 tr.dyt-selected td {
-   background-color: rgba(0, 124, 255);
-   filter: brightness(.9);
+   background-color: var(--dyt-bg-selected-row);
+   color: var(--dyt-color-selected-row);
 }
 tr.dyt-selected:hover th,
 tr.dyt-selected:hover td,
 tr.dyt-selected:focus-within th,
 tr.dyt-selected:focus-within td {
-   background-color: rgba(0, 124, 255);
-   filter: brightness(.85);
-}
-
-
-/* not dark theme */
-html:not(.dark-theme) tr.dyt-selected th,
-html:not(.dark-theme) tr.dyt-selected td {
-   background-color: rgb(0, 147, 255);
-   color: white;
+   background-color: var(--dyt-bg-selected-row);
+   filter: brightness(0.85);
 }
