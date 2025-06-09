@@ -8,6 +8,7 @@
 
          <table
             id="dynamic-table"
+            dyt-settings-group-id="dynamic-table"
             dyt-table
 
             cdkDropList
@@ -41,12 +42,13 @@
             </thead>
 
             <tbody>
-               @for (item of items; track $index; let index = $index) {
+               @for (item of items; track $index; let index = $index; let isEven = $even) {
                   <tr
                      dyt-row
                      [dyt-draggable]="true"
                      [dyt-selectable]="true"
                      [dyt-row-highlight-on-hover]="true"
+                     [dyt-zebra-row-even]="isEven"
                      [dyt-trackBy]="{ groupId: 'dynamic-table', itemId: item.id }"
                      (dyt-selected)="onRowSelect($event, index)"
                      cdkDrag

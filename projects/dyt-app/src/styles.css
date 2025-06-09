@@ -11,3 +11,20 @@ body {
    overflow-x: hidden;
    overflow-y: scroll;
 }
+
+/* not dark theme */
+:root.default-theme {
+   --dyt-bg-table: rgb(255, 255, 255);
+   --dyt-bg-th: rgb(200, 200, 200);
+   --dyt-bg-td: rgb(220, 220, 220);
+   --dyt-color-th: rgb(60, 60, 60);
+   --dyt-color-td: rgb(25, 25, 25);
+   --dyt-border-color-th-1: rgb(160, 160, 160);
+   --dyt-border-color-th-2: rgb(160, 160, 160);
+   --dyt-border-color-td-1: rgb(181, 181, 181);
+   --dyt-border-color-td-2: rgb(206, 206, 206);
+   --dyt-bg-zebra-row-th: rgb(190, 190, 190);
+   --dyt-bg-zebra-row-td: rgb(210, 210, 210);
+   --dyt-bg-selected-row: rgba(0, 124, 255);
+   --dyt-brigthness-active-row: 0.9;
+}

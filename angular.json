@@ -60,6 +60,7 @@
               }
             ],
             "styles": [
+              "dist/ngx-dynamic-table/src/styles/dynamic-table.css",
               "projects/dyt-app/src/styles.css"
             ],
             "scripts": [],
