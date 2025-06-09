@@ -12,6 +12,11 @@ tr.dyt-selectable:not(.dyt-selected):focus-within th,
 tr.dyt-selectable:not(.dyt-selected):focus-within td {
    filter: brightness(var(--dyt-brigthness-active-row));
 }
+tr:not(.dyt-selected).dyt-even th {
+   background-color: var(--dyt-bg-zebra-row-th);
+}
+tr:not(.dyt-selected).dyt-even td {
+   background-color: var(--dyt-bg-zebra-row-td);
 }
 tr.dyt-selected th,
 tr.dyt-selected td {

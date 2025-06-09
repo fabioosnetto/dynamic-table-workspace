@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, Input, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, Component, ElementRef, HostBinding, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'tr[dyt-row]',
@@ -20,10 +20,15 @@ export class DytRowComponent {
   @HostBinding('class.dyt-row-highlight-on-hover')
   private _highlightOnHover: boolean;
 
+  @HostBinding('class.dyt-even')
+  @Input({ alias: 'dyt-zebra-row-even', required: false, transform: booleanAttribute })
+  public isZebraRowEven: boolean;
+
   constructor(
     private _elementRef: ElementRef
   ) {
     this._highlightOnHover = true;
+    this.isZebraRowEven   = false;
   }
 
   // host tab index
