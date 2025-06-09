@@ -33,7 +33,7 @@ export class DytColResizerComponent {
   public onPointerDown(event: PointerEvent): void {
 
     // init last x position
-    this._lastX = event.x;
+    this._lastX = this._dytService.roundToHalf(event.x);
 
     // disable confliting features
     this._dytService.disableContextMenu();

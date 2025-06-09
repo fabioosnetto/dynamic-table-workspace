@@ -119,12 +119,14 @@ export class DytHeaderCellComponent implements AfterViewInit, AfterContentInit, 
     if (!this._dytCell_el?.id) return;
     // verify table id
     const table_el = this._dytService.getParentTable(this._dytCell_el);
-    if (!table_el?.id) return;
+    if (!table_el) return;
+    const tableId = this._dytService.getTableId(table_el);
+    if (!tableId) return;
 
     // build current column settings
-    const settings: iDytColumnSettings = { width: this._width };
+    const settings: iDytColumnSettings = { width: this._dytService.roundToHalf(this._width) };
     // save cache
-    this._dytService.saveColumnSettings(table_el.id, this._dytCell_el.id, settings);
+    this._dytService.saveColumnSettings(tableId, this._dytCell_el.id, settings);
   }
 
   // On Resize Value
@@ -134,12 +136,12 @@ export class DytHeaderCellComponent implements AfterViewInit, AfterContentInit, 
 
   // Width Setter
   private set _width(width: number | null) {
-    this._width$.next(width);
+    this._width$.next(width ? this._dytService.roundToHalf(width) : width);
   }
 
   // Width Getter
   private get _width(): number | null {
-    return this._width$.value;
+    return this._width$.value ? this._dytService.roundToHalf(this._width$.value) : this._width$.value;
   }
 
   // set column width

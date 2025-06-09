@@ -133,4 +133,9 @@ export class DynamicTableService {
   public enableContextMenu(): void {
     document.removeEventListener('contextmenu', this.preventDefault);
   }
+
+  // Round To Half
+  public roundToHalf(value: number): number {
+    return Math.round(value * 2) / 2;
+  }
 }
