@@ -25,7 +25,7 @@
 }
 :host:hover,
 :host:focus-visible {
-   filter: brightness(calc(var(--dyt-brigthness-active-row) - 0.1)) !important;
+   filter: brightness(calc(var(--dyt-brigthness-active-row) - 0.05)) !important;
 }
 :host-context(tr).dyt-selected :host:hover,
 :host-context(tr).dyt-selected :host:focus-visible {
