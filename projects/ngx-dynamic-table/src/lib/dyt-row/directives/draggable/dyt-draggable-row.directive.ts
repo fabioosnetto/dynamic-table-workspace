@@ -1,7 +1,7 @@
 import { Directive, HostBinding, HostListener, Input, OnInit, Renderer2, ViewContainerRef } from '@angular/core';
 import { DytInflationBubbleComponent } from '../../../dyt-inflation-bubble/dyt-inflation-bubble.component';
 import { first } from 'rxjs';
-import { CdkDrag } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragEnd, CdkDragMove } from '@angular/cdk/drag-drop';
 import { DynamicTableService } from '../../../services/dynamic-table.service';
 
 @Directive({
@@ -22,9 +22,12 @@ export class DytDraggableRowDirective implements OnInit {
     else this._removeStyles();
   }
 
-  private _isDraggable : boolean;
-  private _isDragging  : boolean;
-  private _styles      : { id: string, content: string };
+  private _isDraggable    : boolean;
+  private _isDragging     : boolean;
+  private _styles         : { id: string, content: string };
+  public  _scrollInterval : NodeJS.Timeout | null;
+  public  _scrollSpeed    : number;
+  public  _scrollMaxSpeed : number;
 
   constructor(
     private _viewContainerRef: ViewContainerRef,
@@ -32,9 +35,12 @@ export class DytDraggableRowDirective implements OnInit {
     private _cdkDrag: CdkDrag,
     private _dytService: DynamicTableService
   ) {
-    this._isDraggable = true;
-    this._isDragging  = false;
-    this._styles      = this._getStyles();
+    this._isDraggable    = true;
+    this._isDragging     = false;
+    this._styles         = this._getStyles();
+    this._scrollInterval = null;
+    this._scrollSpeed    = 1;
+    this._scrollMaxSpeed = this._scrollSpeed;
   }
 
   ngOnInit(): void {
@@ -114,9 +120,60 @@ export class DytDraggableRowDirective implements OnInit {
     });
   }
 
+  // Handle Scroll On Drag Move
+  private _handleScrollOnDragMove(event: CdkDragMove): void {
+    // get the mouse position from the event
+    const { x, y } = event.pointerPosition;
+    const pageHeight = window.innerHeight;
+
+    // set scroll max speed
+    const ratio = y < 25 || y > pageHeight - 25 ? 10 : 50; // control max speed accordingly to mouse pos
+    const prevMaxSpeed = this._scrollMaxSpeed;
+    this._scrollMaxSpeed = pageHeight / ratio;
+
+    // set scroll direction
+    let direction: null | 'up' | 'down';
+    if (y < 50) direction = 'up'; // near the top, scroll up
+    else if (y > pageHeight - 50) direction = 'down'; // near the bottom, scroll down
+    else direction = null; // not near the edges, do not scroll
+
+    // scroll when the mouse reaches the top or bottom
+    if (direction) {
+      if (!this._scrollInterval || prevMaxSpeed !== this._scrollMaxSpeed) this._startScrolling(direction);
+    }
+    // stop scrolling when the mouse is not near the edges
+    else this._stopScrolling();
+  }
+
+  // Start Scrolling
+  public _startScrolling(direction: 'up' | 'down') {
+    // return if scrolling is already active
+    if (this._scrollInterval) clearInterval(this._scrollInterval);
+
+    // set a new interval to keep scrolling
+    this._scrollInterval = setInterval(() => {
+
+      if (this._scrollSpeed < this._scrollMaxSpeed) this._scrollSpeed++; // increase speed for each calling
+      else this._scrollSpeed = this._scrollMaxSpeed; // limit the scroll speed
+
+      // scroll
+      window.scrollBy({
+        top: direction === 'up' ? -this._scrollSpeed : this._scrollSpeed,
+        behavior: 'instant'
+      });
+    }, 40);
+  }
+  
+  // Stop Scrolling
+  public _stopScrolling() {
+    if (this._scrollInterval) clearInterval(this._scrollInterval);
+    this._scrollInterval = null;
+    this._scrollSpeed = 1;
+  }
+
   // add class whether a row is draggable
   @HostBinding('class.dyt-draggable')
-  public get isSelectable(): boolean {
+  public get isDraggable(): boolean {
     return this._isDraggable;
   }
 
@@ -150,4 +207,16 @@ export class DytDraggableRowDirective implements OnInit {
       }, handlerDelay); // add a delay to handler, so prevent simple clicks
     }
   }
+
+  // listen row drag moved
+  @HostListener('cdkDragMoved', ['$event'])
+  public onDragMoved(event: CdkDragMove) {
+    this._handleScrollOnDragMove(event);
+  }
+
+  // listen row drag end
+  @HostListener('cdkDragEnd', ['$event'])
+  public onDragEnded(event: CdkDragEnd) {
+    this._stopScrolling();
+  } 
 }
